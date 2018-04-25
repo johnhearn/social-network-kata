@@ -1,5 +1,6 @@
-package com.codurance.kata.socialnetwork;
+package com.codurance.kata.socialnetwork.unit;
 
+import com.codurance.kata.socialnetwork.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,13 +20,15 @@ public class MessagePrinterShould {
     @Mock
     private Message message;
     @Mock
-    private MessageFormatter messageFormatter;
+    private DefaultMessageFormatter messageFormatter;
+    @Mock
+    private WallMessageFormatter wallMessageFormatter;
 
     private MessagePrinter printer;
 
     @Before
     public void setUp() {
-        printer = new MessagePrinter(output, messageFormatter);
+        printer = new MessagePrinter(output, messageFormatter, wallMessageFormatter);
     }
 
     @Test
@@ -34,6 +37,16 @@ public class MessagePrinterShould {
         when(messageFormatter.format(message)).thenReturn(FORMATTED_MESSAGE);
 
         printer.print(message);
+
+        verify(output).println(FORMATTED_MESSAGE);
+    }
+
+    @Test
+    public void
+    print_formatted_message_with_user_name_to_console() {
+        when(wallMessageFormatter.format(message)).thenReturn(FORMATTED_MESSAGE);
+
+        printer.printWithName(message);
 
         verify(output).println(FORMATTED_MESSAGE);
     }

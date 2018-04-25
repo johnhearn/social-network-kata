@@ -7,7 +7,7 @@ public class MessageFactory {
         this.clock = clock;
     }
 
-    public Message create(String text) {
-        return new Message(text, clock.now());
+    public Message create(String user, String text) {
+        return new Message(user, text, clock.now());
     }
 }

@@ -4,12 +4,18 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 public class Message implements Comparable<Message> {
+    private final String user;
     private final String text;
     private final LocalTime time;
 
-    public Message(String text, LocalTime time) {
+    public Message(String user, String text, LocalTime time) {
+        this.user = user;
         this.text = text;
         this.time = time;
+    }
+
+    public String user() {
+        return user;
     }
 
     public String text() {

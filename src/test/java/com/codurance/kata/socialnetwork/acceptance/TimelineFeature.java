@@ -1,5 +1,6 @@
-package com.codurance.kata.socialnetwork;
+package com.codurance.kata.socialnetwork.acceptance;
 
+import com.codurance.kata.socialnetwork.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,9 @@ public class TimelineFeature {
 
     @Before
     public void setUp() {
-        dispatcher = new Dispatcher(console, new Processor(new Network(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(console, new MessageFormatter(clock)))));
+        MessageFormatter defaultMessageFormatter = new DefaultMessageFormatter(clock);
+        
+        dispatcher = new Dispatcher(console, new Processor(new Network(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(console, defaultMessageFormatter, new WallMessageFormatter(defaultMessageFormatter)), new FriendRepository())));
     }
 
     @Test

@@ -1,5 +1,8 @@
-package com.codurance.kata.socialnetwork;
+package com.codurance.kata.socialnetwork.unit;
 
+import com.codurance.kata.socialnetwork.Dispatcher;
+import com.codurance.kata.socialnetwork.Input;
+import com.codurance.kata.socialnetwork.Processor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

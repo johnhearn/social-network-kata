@@ -1,5 +1,8 @@
-package com.codurance.kata.socialnetwork;
+package com.codurance.kata.socialnetwork.unit;
 
+import com.codurance.kata.socialnetwork.Clock;
+import com.codurance.kata.socialnetwork.Message;
+import com.codurance.kata.socialnetwork.DefaultMessageFormatter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +34,7 @@ public class MessageFormatterShould {
     @Mock
     private Clock clock;
 
-    private MessageFormatter messageFormatter;
+    private DefaultMessageFormatter messageFormatter;
 
     private final LocalTime now;
     private final LocalTime messageTime;
@@ -49,7 +52,7 @@ public class MessageFormatterShould {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        messageFormatter = new MessageFormatter(clock);
+        messageFormatter = new DefaultMessageFormatter(clock);
     }
 
     @Test

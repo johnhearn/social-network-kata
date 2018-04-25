@@ -13,7 +13,9 @@ public class Main {
 
         final Output output = System.out::println;
 
-        Dispatcher dispatcher = new Dispatcher(input, new Processor(new Network(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(output, new MessageFormatter(clock)))));
+        final MessageFormatter defaultMessageFormatter = new DefaultMessageFormatter(clock);
+
+        Dispatcher dispatcher = new Dispatcher(input, new Processor(new Network(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(output, defaultMessageFormatter, new WallMessageFormatter(defaultMessageFormatter)), new FriendRepository())));
         dispatcher.start();
     }
 }

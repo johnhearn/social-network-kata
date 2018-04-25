@@ -1,5 +1,7 @@
-package com.codurance.kata.socialnetwork;
+package com.codurance.kata.socialnetwork.unit;
 
+import com.codurance.kata.socialnetwork.Network;
+import com.codurance.kata.socialnetwork.Processor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,5 +37,21 @@ public class ProcessorShould {
         processor.process("Alice");
 
         verify(network).readTimeline("Alice");
+    }
+
+    @Test
+    public void
+    execute_follow_user() {
+        processor.process("Alice follows Bob");
+
+        verify(network).follow("Alice", "Bob");
+    }
+
+    @Test
+    public void
+    execute_user_wall() {
+        processor.process("Alice wall");
+
+        verify(network).wall("Alice");
     }
 }

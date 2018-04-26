@@ -53,6 +53,6 @@ public class PostingSteps {
     @Then("^\"([^\"]*)\" should be printed$")
     public void message_should_be_printed(String message) throws InterruptedException {
         Thread.sleep(500);
-        assertEquals(message + "\r\n", consoleOutput.toString());
+        assertEquals(message + System.lineSeparator(), consoleOutput.toString());
     }
 }

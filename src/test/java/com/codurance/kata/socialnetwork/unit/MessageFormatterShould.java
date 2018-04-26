@@ -26,6 +26,7 @@ public class MessageFormatterShould {
         return Arrays.asList(new Object[][]{
                 {LocalTime.of(9, 32), LocalTime.of(9, 30), "foo", "foo (2 minutes ago)"},
                 {LocalTime.of(9, 31), LocalTime.of(9, 30), "foo", "foo (1 minute ago)"},
+                {LocalTime.of(9, 30), LocalTime.of(9, 30), "foo", "foo (0 minutes ago)"},
         });
     }
 

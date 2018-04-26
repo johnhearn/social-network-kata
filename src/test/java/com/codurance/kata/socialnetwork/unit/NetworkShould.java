@@ -7,8 +7,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.NavigableSet;
+import java.util.Set;
+import java.util.TreeSet;
 
+import static com.codurance.kata.socialnetwork.unit.CollectionsCreation.navigableSetOf;
+import static com.codurance.kata.socialnetwork.unit.CollectionsCreation.setOf;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -43,7 +48,7 @@ public class NetworkShould {
         NavigableSet<Message> messages = new TreeSet<Message>() {{
             add(message);
         }};
-        when(messageRepository.listMessages(USER)).thenReturn(messages);
+        when(messageRepository.listMessagesFor(USER)).thenReturn(messages);
 
         network.readTimeline(USER);
 
@@ -57,7 +62,7 @@ public class NetworkShould {
 
         network.postMessage(USER, MESSAGE);
 
-        verify(messageRepository).addMessage(USER, message);
+        verify(messageRepository).addMessage(message);
     }
 
     @Test
@@ -83,7 +88,7 @@ public class NetworkShould {
         }};
 
         when(friendRepository.friendsOf(USER)).thenReturn(friends);
-        when(messageRepository.listMessagesOfUsers(userAndFriends)).thenReturn(messages);
+        when(messageRepository.listMessagesFor(userAndFriends)).thenReturn(messages);
 
         network.wall(USER);
 

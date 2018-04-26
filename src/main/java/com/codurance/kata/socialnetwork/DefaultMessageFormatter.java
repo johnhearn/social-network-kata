@@ -16,7 +16,7 @@ public class DefaultMessageFormatter implements MessageFormatter {
 
     private String timeAgoString(Message message) {
         long elapsedMinutes = elapsedMinutes(message);
-        boolean isPlural = elapsedMinutes > 1;
+        boolean isPlural = elapsedMinutes != 1;
 
         return elapsedMinutes + " minute" + (isPlural ? "s" : "");
     }

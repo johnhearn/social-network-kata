@@ -5,18 +5,18 @@ import java.util.*;
 public class MessageRepository {
     private Map<String, NavigableSet<Message>> messages = new HashMap<>();
 
-    public NavigableSet<Message> listMessages(String user) {
+    public NavigableSet<Message> listMessagesFor(String user) {
         return messages.getOrDefault(user, Collections.emptyNavigableSet());
     }
 
-    public void addMessage(String user, Message message) {
-        messages.computeIfAbsent(user, k -> new TreeSet<>()).add(message);
+    public void addMessage(Message message) {
+        messages.computeIfAbsent(message.user(), k -> new TreeSet<>()).add(message);
     }
 
-    public NavigableSet<Message> listMessagesOfUsers(Set<String> users) {
+    public NavigableSet<Message> listMessagesFor(Set<String> users) {
         NavigableSet<Message> messages = new TreeSet<>();
         for (String user : users) {
-            messages.addAll(listMessages(user));
+            messages.addAll(listMessagesFor(user));
         }
         return messages;
     }

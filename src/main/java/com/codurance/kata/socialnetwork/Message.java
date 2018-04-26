@@ -31,17 +31,19 @@ public class Message implements Comparable<Message> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return Objects.equals(text, message.text) &&
+        return Objects.equals(user, message.user) &&
+                Objects.equals(text, message.text) &&
                 Objects.equals(time, message.time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, time);
+        return Objects.hash(user, text, time);
     }
 
     @Override
     public int compareTo(Message o) {
-        return time.compareTo(o.time);
+        int compareTo = time.compareTo(o.time);
+        return compareTo;
     }
 }

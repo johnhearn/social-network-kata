@@ -8,9 +8,12 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.SortedSet;
 
+import static com.codurance.kata.socialnetwork.unit.CollectionsCreation.setOf;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -20,8 +23,8 @@ public class MessageRepositoryShould {
 
     private static final String USER = "Alice";
     private static final String OTHER_USER = "Bob";
-    private static final Message MESSAGE = new Message(USER, "Hello world!", LocalTime.now());
-    private static final Message OTHER_MESSAGE = new Message(OTHER_USER, "Bye cruel world!", LocalTime.now());
+    private static final Message MESSAGE = new Message(USER, "Hello world!", LocalTime.of(3, 0, 30));
+    private static final Message OTHER_MESSAGE = new Message(OTHER_USER, "Bye cruel world!", LocalTime.of(3, 0, 31));
 
     private MessageRepository messageRepository;
 
@@ -33,9 +36,9 @@ public class MessageRepositoryShould {
     @Test
     public void
     store_and_list_messages() {
-        messageRepository.addMessage(USER, MESSAGE);
+        messageRepository.addMessage(MESSAGE);
 
-        SortedSet<Message> messages = messageRepository.listMessages(USER);
+        SortedSet<Message> messages = messageRepository.listMessagesFor(USER);
 
         assertThat(messages.size(), is(1));
         assertThat(messages, hasItem(MESSAGE));
@@ -44,9 +47,9 @@ public class MessageRepositoryShould {
     @Test
     public void
     not_list_messages_from_other_user() {
-        messageRepository.addMessage(USER, MESSAGE);
+        messageRepository.addMessage(MESSAGE);
 
-        SortedSet<Message> messages = messageRepository.listMessages(OTHER_USER);
+        SortedSet<Message> messages = messageRepository.listMessagesFor(OTHER_USER);
 
         assertThat(messages.size(), is(0));
     }
@@ -54,13 +57,10 @@ public class MessageRepositoryShould {
     @Test
     public void
     list_messages_from_multiple_users() {
-        messageRepository.addMessage(USER, MESSAGE);
-        messageRepository.addMessage(OTHER_USER, OTHER_MESSAGE);
+        messageRepository.addMessage(MESSAGE);
+        messageRepository.addMessage(OTHER_MESSAGE);
 
-        SortedSet<Message> messages = messageRepository.listMessagesOfUsers(new HashSet<String>() {{
-            add(USER);
-            add(OTHER_USER);
-        }});
+        SortedSet<Message> messages = messageRepository.listMessagesFor(setOf(USER, OTHER_USER));
 
         assertThat(messages.size(), is(2));
         assertThat(messages, hasItem(MESSAGE));

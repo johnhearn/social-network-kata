@@ -17,11 +17,11 @@ public class Network {
     }
 
     public void postMessage(String user, String text) {
-        messageRepository.addMessage(user, messageFactory.create(user, text));
+        messageRepository.addMessage(messageFactory.create(user, text));
     }
 
     public void readTimeline(String user) {
-        NavigableSet<Message> userMessages = messageRepository.listMessages(user);
+        NavigableSet<Message> userMessages = messageRepository.listMessagesFor(user);
 
         for (Message message : userMessages.descendingSet()) {
             messagePrinter.print(message);
@@ -36,7 +36,7 @@ public class Network {
         Set<String> friends = friendRepository.friendsOf(user);
         friends.add(user);
 
-        NavigableSet<Message> messages = messageRepository.listMessagesOfUsers(friends);
+        NavigableSet<Message> messages = messageRepository.listMessagesFor(friends);
 
         for (Message message : messages.descendingSet()) {
             messagePrinter.printWithName(message);

@@ -16,7 +16,9 @@ import static org.mockito.Mockito.when;
 public class FollowerFeature {
 
     @Mock
-    private Console console;
+    private Input input;
+    @Mock
+    private Output output;
     @Mock
     private Clock clock;
 
@@ -26,7 +28,7 @@ public class FollowerFeature {
     public void setUp() {
         MessageFormatter defaultMessageFormatter = new DefaultMessageFormatter(clock);
 
-        dispatcher = new Dispatcher(console, new Processor(new Network(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(console, defaultMessageFormatter, new WallMessageFormatter(defaultMessageFormatter)), new FriendRepository())));
+        dispatcher = new Dispatcher(input, new Processor(new Network(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(output, defaultMessageFormatter, new WallMessageFormatter(defaultMessageFormatter)), new FriendRepository())));
     }
 
     @Test
@@ -38,7 +40,7 @@ public class FollowerFeature {
                 .thenReturn(LocalTime.of(9, 28))
                 .thenReturn(LocalTime.of(9, 30));
 
-        when(console.readln())
+        when(input.readln())
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("Charlie -> I'm in New York today! Anyone want to have a coffee?")
                 .thenReturn("Charlie follows Alice")
@@ -49,7 +51,7 @@ public class FollowerFeature {
         dispatcher.start();
 
         // then
-        verify(console).println("Charlie - I'm in New York today! Anyone want to have a coffee? (2 minutes ago)");
-        verify(console).println("Alice - I love the weather today (5 minutes ago)");
+        verify(output).println("Charlie - I'm in New York today! Anyone want to have a coffee? (2 minutes ago)");
+        verify(output).println("Alice - I love the weather today (5 minutes ago)");
     }
 }

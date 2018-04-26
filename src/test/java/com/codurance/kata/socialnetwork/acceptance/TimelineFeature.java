@@ -16,7 +16,9 @@ import static org.mockito.Mockito.when;
 public class TimelineFeature {
 
     @Mock
-    private Console console;
+    private Input input;
+    @Mock
+    private Output output;
     @Mock
     private Clock clock;
 
@@ -26,7 +28,7 @@ public class TimelineFeature {
     public void setUp() {
         MessageFormatter defaultMessageFormatter = new DefaultMessageFormatter(clock);
         
-        dispatcher = new Dispatcher(console, new Processor(new Network(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(console, defaultMessageFormatter, new WallMessageFormatter(defaultMessageFormatter)), new FriendRepository())));
+        dispatcher = new Dispatcher(input, new Processor(new Network(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(output, defaultMessageFormatter, new WallMessageFormatter(defaultMessageFormatter)), new FriendRepository())));
     }
 
     @Test
@@ -38,7 +40,7 @@ public class TimelineFeature {
                 .thenReturn(LocalTime.of(9, 31))
                 .thenReturn(LocalTime.of(9, 32));
 
-        when(console.readln())
+        when(input.readln())
                 .thenReturn("Bob -> Damn! We lost!")
                 .thenReturn("Bob -> Good game though.")
                 .thenReturn("Bob")
@@ -48,7 +50,7 @@ public class TimelineFeature {
         dispatcher.start();
 
         // then
-        verify(console).println("Good game though. (1 minute ago)");
-        verify(console).println("Damn! We lost! (2 minutes ago)");
+        verify(output).println("Good game though. (1 minute ago)");
+        verify(output).println("Damn! We lost! (2 minutes ago)");
     }
 }

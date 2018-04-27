@@ -8,10 +8,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.NavigableSet;
-import java.util.Set;
-import java.util.TreeSet;
 
 import static com.codurance.kata.socialnetwork.unit.CollectionsCreation.navigableSetOf;
 import static com.codurance.kata.socialnetwork.unit.CollectionsCreation.setOf;
@@ -19,7 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class NetworkShould {
+public class SocialNetworkShould {
 
     private static final String USER = "Alice";
     private static final String FRIEND = "Bob";
@@ -36,11 +32,11 @@ public class NetworkShould {
 
     private Message message;
 
-    private Network network;
+    private SocialNetwork network;
 
     @Before
     public void setUp() {
-        network = new Network(messageRepository, messageFactory, messagePrinter, friendRepository);
+        network = new SocialNetwork(messageRepository, messageFactory, messagePrinter, friendRepository);
         message = new Message("user", "message", LocalTime.now());
     }
 

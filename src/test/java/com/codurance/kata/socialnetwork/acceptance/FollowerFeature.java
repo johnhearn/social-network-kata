@@ -28,7 +28,7 @@ public class FollowerFeature {
     public void setUp() {
         MessageFormatter defaultMessageFormatter = new DefaultMessageFormatter(clock);
 
-        dispatcher = new Dispatcher(input, new Processor(new Network(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(output, defaultMessageFormatter, new WallMessageFormatter(defaultMessageFormatter)), new FriendRepository())));
+        dispatcher = new Dispatcher(input, new Processor(new SocialNetwork(new MessageRepository(), new MessageFactory(clock), new MessagePrinter(output, defaultMessageFormatter, new WallMessageFormatter(defaultMessageFormatter)), new FriendRepository())));
     }
 
     @Test

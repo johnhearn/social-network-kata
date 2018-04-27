@@ -2,14 +2,14 @@ package com.codurance.kata.socialnetwork;
 
 import java.util.*;
 
-public class Network {
+public class SocialNetwork {
 
     private final MessageRepository messageRepository;
     private final MessageFactory messageFactory;
     private final MessagePrinter messagePrinter;
     private final FriendRepository friendRepository;
 
-    public Network(MessageRepository messageRepository, MessageFactory messageFactory, MessagePrinter messagePrinter, FriendRepository friendRepository) {
+    public SocialNetwork(MessageRepository messageRepository, MessageFactory messageFactory, MessagePrinter messagePrinter, FriendRepository friendRepository) {
         this.messageRepository = messageRepository;
         this.messageFactory = messageFactory;
         this.messagePrinter = messagePrinter;

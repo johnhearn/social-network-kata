@@ -1,6 +1,6 @@
 package com.codurance.kata.socialnetwork.unit;
 
-import com.codurance.kata.socialnetwork.Network;
+import com.codurance.kata.socialnetwork.SocialNetwork;
 import com.codurance.kata.socialnetwork.Processor;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.verify;
 public class ProcessorShould {
 
     @Mock
-    private Network network;
+    private SocialNetwork network;
 
     private Processor processor;
 

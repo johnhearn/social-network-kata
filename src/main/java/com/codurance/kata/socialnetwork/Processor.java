@@ -1,9 +1,9 @@
 package com.codurance.kata.socialnetwork;
 
 public class Processor {
-    private final Network network;
+    private final SocialNetwork network;
 
-    public Processor(Network network) {
+    public Processor(SocialNetwork network) {
         this.network = network;
     }
 

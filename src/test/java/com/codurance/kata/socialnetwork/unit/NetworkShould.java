@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.NavigableSet;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class NetworkShould {
     private MessageFactory messageFactory;
     @Mock
     private FriendRepository friendRepository;
-    @Mock
+
     private Message message;
 
     private Network network;
@@ -40,15 +41,13 @@ public class NetworkShould {
     @Before
     public void setUp() {
         network = new Network(messageRepository, messageFactory, messagePrinter, friendRepository);
+        message = new Message("user", "message", LocalTime.now());
     }
 
     @Test
     public void
     print_in_timeline_all_messages_from_user() {
-        NavigableSet<Message> messages = new TreeSet<Message>() {{
-            add(message);
-        }};
-        when(messageRepository.listMessagesFor(USER)).thenReturn(messages);
+        when(messageRepository.listMessagesFor(USER)).thenReturn(navigableSetOf(message));
 
         network.readTimeline(USER);
 
@@ -76,19 +75,8 @@ public class NetworkShould {
     @Test
     public void
     print_user_wall() {
-        Set<String> friends = new HashSet<String>() {{
-            add(FRIEND);
-        }};
-        Set<String> userAndFriends = new HashSet<String>() {{
-            add(USER);
-            add(FRIEND);
-        }};
-        NavigableSet<Message> messages = new TreeSet<Message>() {{
-            add(message);
-        }};
-
-        when(friendRepository.friendsOf(USER)).thenReturn(friends);
-        when(messageRepository.listMessagesFor(userAndFriends)).thenReturn(messages);
+        when(friendRepository.friendsOf(USER)).thenReturn(setOf(FRIEND));
+        when(messageRepository.listMessagesFor(setOf(USER, FRIEND))).thenReturn(navigableSetOf(message));
 
         network.wall(USER);
 
